@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4、不同的挂载方式</title>
+</head>
+<body>
+  <div id="app">
+	<input type="text" v-model="a"/>
+    <p>我是{{a}}</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+	const vm=new Vue({
+		// el:'#app',
+		data(){
+			return{
+				a:'封绝'
+			}
+		}
+	}).$mount('#app')
+	
+  </script>
+</body>
+</html>

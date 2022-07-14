@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6、绑定事件监听相关</title>
+</head>
+<body>
+  <div id="app">
+		<!-- first 事件监听的完整写法-->
+		<button v-on:click="test1">封绝1</button>
+		<!-- second 事件监听的简写-->
+		<!-- 在vue的模板中，事件回调函数可以传递$event，名字不能随意改，这个东西就是事件对象 -->
+		<button @click="test2($event)">封绝2</button>
+		
+		<!-- third:事件添加的时候除了事件对象以外，还要传递自己的参数的时候必须要写$event -->
+		<button @click="test3($event,'yangmi')">封绝3</button>
+		
+		<!-- fouth:vue事件中阻止冒泡 -->
+		<div style="width:300px;height:300px;background-color: hotpink;" @click="outer">
+			<div style="width:100px;height:100px;background-color:skyblue;" @click.stop="inner"></div>	
+		</div>
+		
+		<a href="https://www.baidu.com" @click.prevent="cancelDefault">打开百度</a>
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		new Vue({
+			el:"#app",
+			data(){
+				
+			},
+			methods: {
+				test1(event) {
+					console.log(event.target.innerHTML)
+				},
+				test2(event){
+					console.log(event.target)
+				},
+				test3(event,str){
+					console.log(event)
+				},
+				outer(){
+					console.log("外部")
+				},
+				inner(event){
+					console.log("内部")
+					// event.stopPropagation();//阻止事件冒泡
+				},
+				cancelDefault(event){
+					//event.preventDefault();
+				}
+			},
+		})
+		
+		//事件对象
+		//什么是事件对象
+		//回调函数 自己定义 自己没使用，最后执行了(系统执行（浏览器内核)
+		//系统调用回调函数的时候默认传递了一个实参，这个实参就是我们所说的事件对象
+		//事件对象是这一次事件触发后相关的所有一切信息被封装成的对象
+		//为什么浏览器调用回调要传递事件对象，是为了防止用户在函数内部用到这次相关的信息
+		
+		// var box=document.getElementById('box')
+		// box.onclick=function(event){
+		// 	console.log(event.target.innerHTML)
+		// }
+		
+  </script>
+</body>
+</html>

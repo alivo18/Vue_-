@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6、computed和watch的使用方法</title>
+</head>
+<body>
+	<div id="app">
+		姓:<input type="text" v-model='firstname'/>
+		名:<input type="text" v-model='lastname'/>
+		<!-- 数据在模板中数据都是指向vm(即this->vm),不过模板中this可以省略 -->
+		<!-- 第一种，使用js拼接语句 -->
+		<!-- {{}}为插值语法 -->
+		<p>{{firstname+'-'+lastname}}</p>
+		<!-- 第二种，封装函数 -->
+		<p>{{getfullname()}}</p>
+		<!-- 第三种,计算数据 -->
+		<p>{{fullname}}</p>
+		<!-- 第四种，监视方法 -->
+		<p>{{fullname2}}</p>
+		<!-- 使用computed异步返回数据，不行 -->
+		<p>{{fullname3}}</p>
+		<!-- 使用watch异步返回数据，可行 -->
+		<p>{{fullname4}}</p>
+		<!-- 使用计算属性的set方法 -->
+		<input type="text" v-model="fullname"/>
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+	const vm=new Vue({
+		el:'#app',
+		data(){
+			return{
+				firstname:'封',
+				lastname:'绝',
+				fullname2:'',
+				fullname4:'',
+			}
+		},
+		methods: {
+			getfullname() {
+				return this.firstname+'-'+this.lastname
+			}
+		},
+		computed: {
+			fullname:{
+				get() {
+					return this.firstname+'-'+this.lastname
+				},
+				set(val){
+					let arr=val.split('-')
+					this.firstname=arr[0]
+					this.lastname=arr[1]
+				}
+			},
+			//如果只有get方法，可以简写成
+			// fullname(){
+			// 	return this.firstname+'-'+this.lastname
+			// },
+			
+			
+			//computed只能是同步返回数据，不能异步返回数据
+			fullname3(){
+				
+				let a=null
+				setTimeout(()=>{
+					a='tianxia'
+				},1000)
+				return a
+			}
+			// 使用方法获取数据和使用计算属性获取数据
+			// 对于方法调用：使用几次方法调用几次
+			// 对于计算属性调用：计算属性的get只被调用了一次
+			// 由此得出计算属性存在缓存内，效率更高，但是更占缓存
+		},
+		//剪视的数据一定是存在的，而且是可以变化的
+		watch: {
+			firstname:{
+				//这个对象是一个配置对象
+				// handler:function(){
+					
+				// }
+				handler(newval,oldval){
+					this.fullname2=newval+'-'+this.lastname
+					setTimeout(()=>{
+						this.fullname4='天下'
+					},1000)
+				},
+				immediate:true
+			},
+			// lastname:{
+			// },
+			// xxxl:{
+			// }
+		}
+	})
+	vm.$watch('lastname',function(newval,oldval){
+		//this决定了是否可以使用箭头函数
+		console.log(this)
+		this.fullname2=this.firstname+'-'+newval
+	})
+	
+	// computed是计算属性：一般是没有这个值，那么根据已有的去做计算
+	// watch 是监视属性，一般监视的属性，监视的属性以及后期需要更改的属性都必须有
+	// computed可以使用的场合都可以用watch去解决，但是能用watch解决的computed不一定
+  </script>
+</body>
+</html>

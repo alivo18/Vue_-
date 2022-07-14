@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6、自定义插件</title>
+</head>
+<body>
+  <div id="app">
+		<p v-upper="txt"></p>
+	</div>
+  <script src="../js/vue.js"></script>
+	<script src="myplugin.js"></script>
+  <script>
+		Vue.use(MyPlugin)
+		Vue.myGlobalMethod()
+		
+		const vm=new Vue({
+			el:'#app',
+			data:{
+				txt:'asoul'
+			}
+		})
+		vm.$myMethod()
+  </script>
+</body>
+</html>

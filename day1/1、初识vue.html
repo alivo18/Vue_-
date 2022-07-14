@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1、初识vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- <p id="pp">嘿嘿</p> -->
+    <p id="pp">{{a}}</p>
+  </div>
+  <script src="../js/vue.js"></script>
+<!--  <script src="./js/jquery-3.6.0.js"></script> -->
+  <script>
+	//原生
+	 // var a='封绝';
+	// var b=document.getElementById('pp');
+	// b.innerHTML=a;
+	
+	//jQuery
+	// $('#pp').html(a);
+	
+	//vue版本
+	const vm=new Vue({
+		//配置对象
+		// el:'#app',//挂载在div上
+		el:'#pp',//挂载在p节点上也可以
+		data:{
+			a:'封绝'
+		}
+	})
+  </script>
+</body>
+</html>

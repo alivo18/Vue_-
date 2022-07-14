@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7、列表循环输出</title>
+</head>
+<body>
+  <div id="app">
+		<ul>
+			<li v-for="(person,index) in persons":key="person.id">
+				{{person.id}}---{{person.name}}---{{person.age}}
+			</li>
+		</ul>
+		
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		new Vue({
+			el:'#app',
+			data:{
+				persons:[
+					{id:1,name:'fengjue',age:20},
+					{id:2,name:'jiuwu',age:30},
+					{id:3,name:'tianxia',age:40},
+					{id:4,name:'nicheng',age:50}
+				]
+			}
+		})
+  </script>
+</body>
+</html>

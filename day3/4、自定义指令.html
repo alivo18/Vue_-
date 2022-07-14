@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4、自定义指令</title>
+</head>
+<body>
+  <div id="app">
+		<p v-text="msg"></p>
+		<p v-lower="msg"></p>
+	</div>
+	<div id="app1">
+		<p v-text="msg"></p>
+		<p v-upper="msg"></p>
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		// 自定义指令包括全局指令和局部指令
+		// 功能 参数 返回值
+		// 定义全局质量
+		// 参数：1.指令名称（不包括v- 只能是全小写）
+					// 2.回调函数（参数1使用这个指令那个节点，参数2这个指令使用的表达式的值和这个表达式的集合）
+		Vue.directive('upper',function(a,b){
+			// console.log(a,b)
+			a.textContent=b.value.toUpperCase()
+		})
+		
+		new Vue({
+			el:'#app',
+			data:{
+				msg:'ASOUL'
+			},
+			directives:{
+				// 局部指令
+				lower(node,binding){
+					node.textContent=binding.value.toLowerCase()
+				}
+			}
+		})
+		
+		new Vue({
+			el:'#app1',
+			data:{
+				msg:'asoul'
+			},
+			
+		})
+  </script>
+</body>
+</html>

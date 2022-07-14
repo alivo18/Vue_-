@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3、v指令</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{a}}</p>
+	<a v-bind:href="url">点击去学习</a>
+	<!-- 使用了指令就是js代码了，不再代表字符串了 -->
+	<button v-on:click="test">点我</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+	const vm=new Vue({
+		el:'#app',
+		data:{
+			a:'fengjue,封绝',
+			url:'http://www.baidu.com'
+		},
+		methods: {
+			test() {
+				alert('封绝')
+			}
+		},
+	})
+	
+  </script>
+</body>
+</html>

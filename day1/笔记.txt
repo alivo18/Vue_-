@@ -1,0 +1,28 @@
+1.vue开发必定要vue devtools插件
+2.vue相较于原生和jq最根本的效率差距就是dom碎片化，从而实现全页面仅一次刷新重绘dom树
+3.{{a}}
+4.v-bind:href="url"=:href="url"
+5.v-model="a" 双向绑定
+6.el:'#app'/.$mount('#app') 两种挂载方式
+7.Object.defineProperty可以动态修改对象属性，也可以模拟出数据代理，做到隔离对象数据
+8.数据在模板中数据都是指向vm(即this->vm),不过模板中this可以省略
+9.使用方法获取数据和使用计算属性获取数据
+	对于方法调用：使用几次方法调用几次
+	对于计算属性调用：计算属性的get只被调用了一次
+	由此得出计算属性存在缓存内，效率更高，但是更占缓存
+10.	computed是计算属性：一般是没有这个值，那么根据已有的去做计算
+11.watch 是监视属性，一般监视的属性，监视的属性以及后期需要更改的属性都必须有
+12.computed可以使用的场合都可以用watch去解决，但是能用watch解决的computed不一定
+13.computed只能是同步返回数据，不能异步返回数据
+14.使用watch异步返回数据，可行
+15.v-for可以遍历数组对象，写在li标签可以自动生成所有的li
+16.
+
+newperson() {
+					// 从vm身上获取keyword和persons
+					let {keyword,persons}= this
+					//计算新的数据
+					//函数三要素,功能，参数，返回值
+					let arr=persons.filter(Function(item,index){
+						return item.name.indexOf(keyword)!==-1
+					})

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3、响应式数据对对象和数组的区别</title>
+</head>
+<body>
+  <div id="app">
+		<input type="text" placeholder="请输入搜索的条件" v-model="keyword"/>
+		<ul>
+			<li v-for="(person,index) in newperson":key="person.id">
+				{{person.id}}---{{person.name}}---{{person.age}}
+			</li>
+		</ul>
+		<button @click="update()">点击修改第一项的name</button>
+
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		// 生产环境提示
+		Vue.config.productionTip=false;
+		
+		const vm=new Vue({
+			el:'#app',
+			data(){
+				return {
+					keyword:'',
+					persons:[
+						{id:1,name:'fengjue',age:20},
+						{id:2,name:'jiuwu',age:30},
+						{id:3,name:'tianxia',age:40},
+						{id:4,name:'nicheng',age:50}
+					],
+				}
+			},
+			methods: {
+				update() {
+					//1
+					// this.persons[0].name='yingbo'
+					//2
+					// this.persons[0]={id:1,name:'yingbao',age:33}
+					
+					
+					//3	push pop shift unshift splice(增删一体化)
+					//splice参数两个代表删除,第一个起始位置，第二个删除几个
+					//参数如果有多个 是增还是改，看第二个参数，第二个参数0代表增 如果不是0代表改
+					this.persons.splice(0,1,{id:1,name:'yingbao',age:33})
+				}
+				// 在Vue当中 一开始data中的属性，数据都是响应式的
+				// 数组的数据 ->数组中的元素整体
+				// 对象的数据 ->对象的属性
+				
+				// vue当中处理响应式数据对于数组和对象是不一样的
+				
+				// 1.如果修改的对象的属性，随便改，都是响应式的
+				// 因为vue一开始就为data当中的所有属性通过object.defineProperty添加get和set
+				
+				//2.数据修改的时候，必须使用特定的几个方法才是响应式的，如果直接通过下标操纵数组的数据，不是响应式
+				//为什么数据的方法就可以式响应式的
+				//此splice非原生的splice，vue当中给数组部分方法添加了修改页面的功能（重写数组的方法）
+				
+				//总结，vue在对待数据和对象的时候处理响应式式不一样的
+				//对象式通过object.defineproperty添加了get和set
+				//数组就是重写数组的方法
+			},
+			computed:{
+				newperson(){
+					//从vm身上获取keyword和persons
+					let {keyword,persons}= this
+					//计算新的数据
+					//函数三要素,功能，参数，返回值
+					//function方法
+					// let arr=persons.filter(function(item,index){
+					// 	return item.name.indexOf(keyword)!==-1
+					// })
+					// return arr
+					//箭头方法
+					let arr=persons.filter(item =>item.name.indexOf(keyword)!==-1)
+					
+					return arr
+				}
+			}
+		})
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5、动态绑定样式</title>
+	<link rel="stylesheet" href=""/>
+	<!-- 绑定样式 绑定类和绑定style样式两种方式 -->
+	<style>
+		.classA{
+			background-color: aqua;
+		}
+		.classB{
+			color: hotpink;
+		}
+		.classC{
+			font-size: 80px;
+		}
+	</style>
+</head>
+<body>
+  <div id="app">
+		<!-- first：我不知道元素绑定的是哪个类，具体用什么类是数据告诉我的 -->
+		<!-- 动态绑定以后，静态绑定依然是可以的 -->
+		<p :class="myclass" class="classA">封绝</p>
+		<!-- second:元素绑定的类是确定的，但是哪个类生效不清楚，生不生效数据决定 -->
+		<p :class="{classA:isA,classB:isB}">封绝2</p>
+		<!-- third:这个元素一下子好多个确定的类 -->
+		<p class="classA classB classC">封绝3</p> <!-- 这就是静态绑定，直接v-bind就是动态数据绑定 -->
+		
+		<p :class="['classA','classB','classC']">封绝4</p>
+		
+		<!-- 绑定style -->
+		<!-- 静态 -->
+		<!-- <p style="color: aquamarine;font-size: 60px;">封绝5</p> -->
+		<!-- 动态 -->
+		<p :style="{color:myColor,fontSize:mySize}">封绝5</p>
+		
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		new Vue({
+			el:"#app",
+			data(){
+				return{
+					myclass:'classB',
+					isA:true,
+					isB:false,
+					myColor:'red',
+					mySize:'40px'
+				}
+			}
+		})
+  </script>
+</body>
+</html>

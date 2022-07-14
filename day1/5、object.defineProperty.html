@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5、object.defineProperty</title>
+</head>
+<body>
+  <script src="../js/vue.js"></script>
+  <script>
+	  let obj={
+		  firstName:'feng',
+		  lastName:'jue'
+	  }
+	  Object.defineProperty(obj,'fullname',{
+		  get() {
+		  	return this.firstName+'-'+this.lastName
+		  },
+		  set(b) {
+		  	let arr=b.split('-')
+			this.firstName=arr[0]
+			this.lastName=arr[1]
+		  }
+	  })
+	  console.log(obj.fullname)
+	  obj.fullname='liu-yifei'
+	  console.log(obj)
+	  
+	//模拟数据代理
+	let vm={}
+	let data={a:'fengjue'}
+	
+	Object.defineProperty(vm,'b',{
+		get(){
+			return data.a;
+		},
+		set(c){
+			data.a=c
+		}
+	})
+	console.log(vm);
+	console.log(vm.b);
+	vm.b="heihei"
+	console.log(vm.b);
+	console.log(data.a)
+  </script>
+</body>
+</html>

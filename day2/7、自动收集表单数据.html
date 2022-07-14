@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7、自动收集表单数据</title>
+</head>
+<body>
+  <div id="app">
+		<label for="in1">用户名:</label>
+		<input type="text" id="in1" v-model="userInfo.username"/>
+		<label>
+			密码:<input type="password" v-model="userInfo.password"/>
+		</label>
+		<br />
+		性别:
+		<label>
+			男:<input type="radio" name="sex" value="male" v-model="userInfo.gender"/>
+		</label>
+		<label>
+			女:<input type="radio" name="sex" value="female" v-model="userInfo.gender"/>
+		</label>
+		
+		<br />
+		爱好:
+		<label>
+			篮球:<input type="checkbox" value="basketball" v-model="userInfo.favs"/>
+		</label>
+		<label>
+			足球:<input type="checkbox" value="football" v-model="userInfo.favs"/>
+		</label>
+		<label>
+			乒乓球:<input type="checkbox" value="pingpang" v-model="userInfo.favs"/>
+		</label>
+		
+		<br />
+		城市:
+		<select v-model="userInfo.cityId">
+			<option :value="city.id" v-for="(city,index) in citys" :key="city.id">{{city.name}}</option>
+		</select>
+		<br />
+		
+		<textarea cols="30" rows="10" v-model="userInfo.desc">
+			
+		</textarea>
+		<br />
+		<button @click="submit">提交</button>
+		
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		new Vue({
+			el:'#app',
+			data:{
+				citys:[
+					{id:1,name:'北京'},
+					{id:2,name:'上海'},
+					{id:3,name:'广州'},
+				],
+				userInfo:{
+					username:'',
+					password:'',
+					gender:'',
+					favs:[],
+					cityId:'1',
+					desc:''
+				}
+			},
+			methods: {
+				submit() {
+					axios({
+						url:'后台给你的接口地址',
+						method:'post',
+						data:this.userInfo
+					})
+				}
+			},
+		})
+  </script>
+</body>
+</html>

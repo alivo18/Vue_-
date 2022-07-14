@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5、自定义过滤器</title>
+</head>
+<body>
+  <div id="app">
+		<p>{{timeNow}}</p>
+		<p>{{timeNow|timeFormat}}</p>
+	</div>
+  <script src="../js/vue.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.3/moment.js"></script>
+  <script>
+		
+		// 定义全局过滤器和局部过滤器
+		// 全局过滤器
+		// Vue.filter('timeFormat',function(value){
+		// 	return moment(value).format('LLLLL')
+		// })
+		
+		new Vue({
+			el:'#app',
+			data:{
+				timeNow:Date.now()//当前时间戳
+			},
+			filters:{
+				// 局部自定义过滤器（记得要在filter后面加上s）
+				timeFormat(value){
+					return moment(value).format('LLLLL')
+				}
+			}
+		})
+		
+  </script>
+</body>
+</html>

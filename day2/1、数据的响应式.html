@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1、数据的响应式</title>
+</head>
+<body>
+  <div id="app">
+		<input type="text" placeholder="请输入搜索的条件" v-model="keyword"/>
+		<ul>
+			<li v-for="(person,index) in newperson":key="person.id">
+				{{person.id}}---{{person.name}}---{{person.age}}
+			</li>
+		</ul>
+		
+	</div>
+  <script src="../js/vue.js"></script>
+  <script>
+		// 生产环境提示
+		Vue.config.productionTip=false;
+		
+		const vm=new Vue({
+			el:'#app',
+			data(){
+				return {
+					keyword:'',
+					persons:[
+						{id:1,name:'fengjue',age:20},
+						{id:2,name:'jiuwu',age:30},
+						{id:3,name:'tianxia',age:40},
+						{id:4,name:'nicheng',age:50}
+					]
+				}
+			},
+			computed:{
+				newperson(){
+					//从vm身上获取keyword和persons
+					let {keyword,persons}= this
+					//计算新的数据
+					//函数三要素,功能，参数，返回值
+					//function方法
+					// let arr=persons.filter(function(item,index){
+					// 	return item.name.indexOf(keyword)!==-1
+					// })
+					// return arr
+					//箭头方法
+					let arr=persons.filter(item =>item.name.indexOf(keyword)!==-1)
+					return arr
+				}
+			}
+		})
+  </script>
+</body>
+</html>
